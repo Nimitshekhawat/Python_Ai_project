@@ -57,3 +57,13 @@ def takeCommand():
 if __name__ =="__main__":
     #wishMe()
     query = takeCommand().lower()
+
+    #logic for executing tasks based on query
+    if 'wikipedia' in query:
+        speak("Searching Wikipedia...")
+        query = query.replace("wikipedia","")
+        results=wikipedia.summary(query, sentences=2)
+        speak("According to Wikipedia")
+        speak(results)
+        print(results)
+
