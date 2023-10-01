@@ -1,8 +1,9 @@
 import pyttsx3
 import datetime
-import SpeechRecognition
-
-
+import speech_recognition as sr
+import pyaudio
+import os 
+import wikipedia
 
 
 engine= pyttsx3.init('sapi5')
@@ -34,7 +35,25 @@ def takeCommand():
     """It takes microphones imput from the user and returns 
         string output 
     """
-   r=sr.Recognizer()
-   with sr.Microphone() as source:
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Listening...")
+        r.pause_threshold=1
+        audio=r.listen(source)
+
+        try:
+            print("Recognizing...")
+            query = r.recognize_google(audio)
+            print(f"User said: {query}\n")
+            speak(query)
+
+        except Exception as e:
+            #print(e)
+
+            print("Say that again please...")
+            return "None"
+        return query
+
 if __name__ =="__main__":
-    wishMe()
+    #wishMe()
+    query = takeCommand().lower()
